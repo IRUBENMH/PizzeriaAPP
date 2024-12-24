@@ -6,6 +6,8 @@ import com.irubenmh.kmp.pizzeria.data.service.LoginServiceImpl
 import com.irubenmh.kmp.pizzeria.domain.repository.LoginRepository
 import com.irubenmh.kmp.pizzeria.domain.repository.LoginRepositoryImpl
 import com.irubenmh.kmp.pizzeria.feature.auth.vm.LoginViewModel
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.auth.auth
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModelOf
@@ -26,9 +28,13 @@ val viewModelsModule = module {
     viewModelOf(::LoginViewModel)
 }
 
+
 val dataModule = module {
 
+    //Firebase
+    single { Firebase.auth }
+
     //Login
-    factory<LoginService>{ LoginServiceImpl()}
+    factory<LoginService>{ LoginServiceImpl(get())}
     factory<LoginRepository>{ LoginRepositoryImpl(get())}
 }

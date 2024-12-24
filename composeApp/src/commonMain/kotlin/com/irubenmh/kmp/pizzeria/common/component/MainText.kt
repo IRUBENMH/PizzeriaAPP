@@ -1,6 +1,6 @@
 package com.irubenmh.kmp.pizzeria.common.component
 
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.TextUnit
 fun MainText(
     modifier: Modifier = Modifier,
     text: String,
-    color: Color = Color.Black,
+    color: Color = Color.Unspecified,
     fontWeight: FontWeight = FontWeight.Normal,
     fontSize: TextUnit = TextUnit.Unspecified
 ) {

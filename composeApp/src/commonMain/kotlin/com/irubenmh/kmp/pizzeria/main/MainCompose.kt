@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.irubenmh.kmp.pizzeria.feature.auth.ui.LoginView
+import com.irubenmh.kmp.pizzeria.feature.home.ui.HomeView
 
 
 @Composable
@@ -18,6 +19,9 @@ fun MainCompose() {
     ) {
         composable("login") {
             LoginView(navController)
+        }
+        composable("home") {
+            HomeView(navController)
         }
     }
 }

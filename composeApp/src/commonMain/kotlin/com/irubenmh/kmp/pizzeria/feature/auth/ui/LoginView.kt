@@ -1,18 +1,19 @@
 package com.irubenmh.kmp.pizzeria.feature.auth.ui
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -28,9 +30,15 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.irubenmh.kmp.pizzeria.common.component.MainButton
 import com.irubenmh.kmp.pizzeria.common.component.MainScreen
+import com.irubenmh.kmp.pizzeria.common.component.MainText
+import com.irubenmh.kmp.pizzeria.common.component.MainTextButton
 import com.irubenmh.kmp.pizzeria.common.component.MainTextField
 import com.irubenmh.kmp.pizzeria.feature.auth.vm.LoginViewModel
+import com.irubenmh.kmp.pizzeria.main.ui.theme.onPrimary
+import com.irubenmh.kmp.pizzeria.main.ui.theme.onSurface
+import com.irubenmh.kmp.pizzeria.main.ui.theme.primary
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 import pizzeriaapp.composeapp.generated.resources.Res
@@ -43,10 +51,14 @@ fun LoginView(
     navController: NavController,
     viewModel: LoginViewModel = koinViewModel()
 ) {
-    MainScreen(
-        verticalArrangement = Arrangement.Center
-    ) {
-        LoginContent(navController, viewModel)
+    MainScreen {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            LoginContent(navController, viewModel)
+        }
     }
 }
 
@@ -57,9 +69,10 @@ fun LoginContent(
 ) {
     BoxWithConstraints(
         modifier = Modifier
-            .fillMaxHeight(0.5f)
+            .fillMaxHeight(0.45f)
             .fillMaxWidth(0.8f)
             .border(2.dp, Color.Black, RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(16.dp))
             .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -80,12 +93,25 @@ fun LoginContent(
 
 @Composable
 fun LoginTitle(modifier: Modifier) {
-    Text(
-        text = "Bienvenido",
-        fontSize = 22.sp,
-        fontWeight = FontWeight.Bold,
-        modifier = modifier
-    )
+    Column(
+        modifier = modifier.padding(top = 16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        MainText(
+            text = "Bienvenido",
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            color = primary
+        )
+        MainText(
+            text = "Inicia sesión para acceder a la App",
+            fontSize = 16.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = primary
+        )
+    }
+
 }
 
 
@@ -101,13 +127,14 @@ fun LoginInputData(
         val password by viewModel.password.collectAsState()
         MainTextField(
             value = username,
-            onValueChange = { viewModel.setUsername(it) },
+            onValueChange = {
+                viewModel.setUsername(it)
+                            },
             label = "Nombre de usuario",
             placeholder = "Nombre de usuario",
-            focusSensitive = true,
             trailingIcon = {
                 IconButton(
-                    onClick = {viewModel.setUsername("") }
+                    onClick = { viewModel.setUsername("") }
                 ) {
                     Icon(
                         painter = painterResource(Res.drawable.close),
@@ -143,24 +170,25 @@ fun LoginButtons(
     navController: NavController,
     viewModel: LoginViewModel
 ) {
+    val isLoginEnabled by viewModel.isLoginEnabled.collectAsState()
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(-(16.dp))
+        verticalArrangement = Arrangement.spacedBy(-(8.dp))
     ) {
-        Button(
-            onClick = {
-
-            }
+        MainButton(
+            text = "INICIAR SESIÓN",
+            enabled = isLoginEnabled,
+            shape = RoundedCornerShape(12.dp),
+            borderStroke = if (!isLoginEnabled) BorderStroke(2.dp, primary) else null
         ) {
-            Text(text = "Iniciar sesión")
+            viewModel.doLogin()
         }
 
-        TextButton(onClick = {})  {
-            Text(
-                text = "Crear cuenta",
-                fontSize = 10.sp
-            )
+        MainTextButton(
+            text = "Crear cuenta"
+        ) {
+            navController.navigate("register")
         }
     }
 

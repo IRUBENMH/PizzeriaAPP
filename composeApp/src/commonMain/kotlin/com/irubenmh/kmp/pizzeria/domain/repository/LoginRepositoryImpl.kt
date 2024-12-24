@@ -1,20 +1,22 @@
 package com.irubenmh.kmp.pizzeria.domain.repository
 
 import com.irubenmh.kmp.pizzeria.data.service.LoginService
+import dev.gitlive.firebase.auth.AuthResult
 
 
 class LoginRepositoryImpl(
     private val loginService: LoginService
 ) : LoginRepository {
-    override fun doLogin(email: String, password: String) {
-        loginService.doLogin(email, password)
+    override suspend fun doSignIn(email: String, password: String): AuthResult? {
+        return loginService.doSignIn(email, password)
     }
 
-    override fun doRegister(email: String, password: String) {
-        loginService.doRegister(email, password)
+    override suspend fun doSignUp(email: String, password: String): AuthResult? {
+        return loginService.doSignUp(email, password)
     }
 
-    override fun doLogout() {
-        loginService.doLogout()
+    override suspend fun doSignOut() {
+        loginService.doSignOut()
     }
+
 }

@@ -1,7 +1,9 @@
 package com.irubenmh.kmp.pizzeria.data.service
 
+import dev.gitlive.firebase.auth.AuthResult
+
 interface LoginService {
-    fun doLogin(email: String, password: String)
-    fun doRegister(email: String, password: String)
-    fun doLogout()
+    suspend fun doSignIn(email: String, password: String) : AuthResult?
+    suspend fun doSignUp(email: String, password: String) : AuthResult?
+    suspend fun doSignOut()
 }

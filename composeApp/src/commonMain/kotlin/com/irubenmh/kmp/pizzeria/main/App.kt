@@ -1,7 +1,8 @@
 package com.irubenmh.kmp.pizzeria.main
 
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import com.irubenmh.kmp.pizzeria.main.ui.MainAppTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
 
@@ -9,8 +10,10 @@ import org.koin.compose.KoinContext
 @Preview
 fun App() {
     KoinContext {
-        MaterialTheme {
-            MainCompose()
+        MainAppTheme {
+            Surface {
+                MainCompose()
+            }
         }
     }
 
