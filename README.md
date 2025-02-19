@@ -1,14 +1,10 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
+Proyecto para la aplicación de una pizzeria en Kotlin Multiplatform.
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+Objetivos principales:
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
-
-
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+1. Poder hacer pedidos de pizzas y bebidas (los productos pueden amplicarse en un futuro)
+2. Realizar reservas en el establecimiento en cuestión.
+3. Mostrar un listado de los productos disponibles
+4. Registro/Inicio de sesión en la App con Firebase Auth
+5. Enlazar una BBDD en Firestore
+6. Guardar pedidos/productos habituales en favoritos. BBDD en local con ROOM
