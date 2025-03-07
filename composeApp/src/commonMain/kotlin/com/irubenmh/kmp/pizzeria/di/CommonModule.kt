@@ -6,6 +6,7 @@ import com.irubenmh.kmp.pizzeria.data.service.LoginServiceImpl
 import com.irubenmh.kmp.pizzeria.domain.repository.LoginRepository
 import com.irubenmh.kmp.pizzeria.domain.repository.LoginRepositoryImpl
 import com.irubenmh.kmp.pizzeria.feature.auth.vm.LoginViewModel
+import com.irubenmh.kmp.pizzeria.feature.home.vm.HomeViewModel
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.auth
 import org.koin.core.context.startKoin
@@ -26,6 +27,7 @@ expect val nativeModule: Module
 val viewModelsModule = module {
     viewModelOf(::BaseViewModel)
     viewModelOf(::LoginViewModel)
+    viewModelOf(::HomeViewModel)
 }
 
 

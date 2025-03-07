@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.irubenmh.kmp.pizzeria.common.utils.setStatusBarColor
 import com.irubenmh.kmp.pizzeria.main.App
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
         val darkMode = isSystemInDarkTheme()
         if (!view.isInEditMode) {
             val window = (view.context as Activity).window
-            window.statusBarColor = Color.Transparent.toArgb()
+            setStatusBarColor(window, Color.Transparent.toArgb())
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkMode
         }
     }

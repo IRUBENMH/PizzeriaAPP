@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "523852226962",
+    "project_id": "pizzeria-kmp",
+    "storage_bucket": "pizzeria-kmp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523852226962:android:629c036930c7549b34a14b",
+        "android_client_info": {
+          "package_name": "com.irubenmh.kmp.pizzeria"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq16UB_zWXHZv8uSjFXri_q6_6vErPG_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,6 @@
 package com.irubenmh.kmp.pizzeria.feature.auth.ui
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -13,9 +12,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,19 +32,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.irubenmh.kmp.pizzeria.common.component.MainButton
-import com.irubenmh.kmp.pizzeria.common.component.MainScreen
 import com.irubenmh.kmp.pizzeria.common.component.MainText
 import com.irubenmh.kmp.pizzeria.common.component.MainTextButton
 import com.irubenmh.kmp.pizzeria.common.component.MainTextField
+import com.irubenmh.kmp.pizzeria.common.component.Screen
+import com.irubenmh.kmp.pizzeria.error.data.model.ErrorContext
 import com.irubenmh.kmp.pizzeria.feature.auth.vm.LoginViewModel
-import com.irubenmh.kmp.pizzeria.main.ui.theme.onPrimary
-import com.irubenmh.kmp.pizzeria.main.ui.theme.onSurface
+import com.irubenmh.kmp.pizzeria.main.data.Routes
 import com.irubenmh.kmp.pizzeria.main.ui.theme.primary
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 import pizzeriaapp.composeapp.generated.resources.Res
 import pizzeriaapp.composeapp.generated.resources.close
 import pizzeriaapp.composeapp.generated.resources.hide_password
+import pizzeriaapp.composeapp.generated.resources.login_view_title
 import pizzeriaapp.composeapp.generated.resources.show_password
 
 @Composable
@@ -51,7 +53,14 @@ fun LoginView(
     navController: NavController,
     viewModel: LoginViewModel = koinViewModel()
 ) {
-    MainScreen {
+    Screen(
+        navController = navController,
+        viewModel = viewModel,
+        title = Res.string.login_view_title,
+        route = Routes.Login.name,
+        context = ErrorContext.LOGIN,
+        scaffold = false
+    ) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -67,6 +76,14 @@ fun LoginContent(
     navController: NavController,
     viewModel: LoginViewModel
 ) {
+    val username by viewModel.username.collectAsState()
+    val password by viewModel.password.collectAsState()
+
+    val isLoginEnabled = remember(username, password) {
+        derivedStateOf {
+            username.isNotEmpty() && password.length >= 6
+        }
+    }
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxHeight(0.45f)
@@ -80,10 +97,13 @@ fun LoginContent(
             modifier = Modifier.align(Alignment.TopCenter)
         )
         LoginInputData(
+            username = username,
+            password = password,
             modifier = Modifier.align(Alignment.Center),
             viewModel = viewModel
         )
         LoginButtons(
+            isLoginEnabled = isLoginEnabled.value,
             modifier = Modifier.align(Alignment.BottomCenter),
             viewModel = viewModel,
             navController = navController
@@ -100,13 +120,13 @@ fun LoginTitle(modifier: Modifier) {
     ) {
         MainText(
             text = "Bienvenido",
-            fontSize = 22.sp,
+            initialFontSize = 22.sp,
             fontWeight = FontWeight.Bold,
             color = primary
         )
         MainText(
             text = "Inicia sesión para acceder a la App",
-            fontSize = 16.sp,
+            initialFontSize = 16.sp,
             fontWeight = FontWeight.SemiBold,
             color = primary
         )
@@ -117,14 +137,16 @@ fun LoginTitle(modifier: Modifier) {
 
 @Composable
 fun LoginInputData(
+    username: String,
+    password: String,
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel
 ) {
+
+
     Column(
         modifier = modifier
     ) {
-        val username by viewModel.username.collectAsState()
-        val password by viewModel.password.collectAsState()
         MainTextField(
             value = username,
             onValueChange = {
@@ -166,11 +188,11 @@ fun LoginInputData(
 
 @Composable
 fun LoginButtons(
+    isLoginEnabled: Boolean,
     modifier: Modifier = Modifier,
     navController: NavController,
     viewModel: LoginViewModel
 ) {
-    val isLoginEnabled by viewModel.isLoginEnabled.collectAsState()
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -178,17 +200,20 @@ fun LoginButtons(
     ) {
         MainButton(
             text = "INICIAR SESIÓN",
+            colorText = if (!isLoginEnabled) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onPrimary,
             enabled = isLoginEnabled,
-            shape = RoundedCornerShape(12.dp),
+            shape = ShapeDefaults.Small,
             borderStroke = if (!isLoginEnabled) BorderStroke(2.dp, primary) else null
         ) {
-            viewModel.doLogin()
+            viewModel.doLogin {
+                navController.navigate(Routes.Home.name)
+            }
         }
 
         MainTextButton(
             text = "Crear cuenta"
         ) {
-            navController.navigate("register")
+            navController.navigate(Routes.Register.name)
         }
     }
 

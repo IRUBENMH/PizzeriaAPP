@@ -1,0 +1,16 @@
+<resources>
+    <string name="information_title_popup">Información</string>
+    <string name="alerta_title_popup">Alerta</string>
+    <string name="error_title_popup">Error</string>
+
+    <string name="btn_accept">Aceptar</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_confirm">Confirmar</string>
+    <string name="btn_continue">Continue</string>
+    <string name="btn_yes">Sí</string>
+    <string name="btn_no">No</string>
+
+    <string name="register_view_title">Registro</string>
+    <string name="login_view_title">Autenticación</string>
+    <string name="home_view_title">Inicio</string>
+</resources>

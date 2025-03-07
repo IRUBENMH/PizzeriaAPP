@@ -6,6 +6,7 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import com.irubenmh.kmp.pizzeria.main.ui.theme.onPrimary
@@ -15,6 +16,7 @@ import com.irubenmh.kmp.pizzeria.main.ui.theme.primary
 fun MainButton(
     modifier: Modifier = Modifier,
     text : String,
+    colorText: Color,
     fontWeight: FontWeight = FontWeight.Bold,
     shape: Shape,
     borderStroke: BorderStroke? = null,
@@ -32,7 +34,8 @@ fun MainButton(
     ) {
         MainText(
             text = text,
-            fontWeight = fontWeight
+            fontWeight = fontWeight,
+            color = colorText
         )
     }
 }

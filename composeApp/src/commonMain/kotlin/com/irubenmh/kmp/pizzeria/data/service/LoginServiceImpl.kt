@@ -10,26 +10,27 @@ class LoginServiceImpl(
     override suspend fun doSignIn(email: String, password: String) : AuthResult? {
         return try {
             auth.signInWithEmailAndPassword(email, password)
-        } catch (e: Exception) {
-            println("$tag (Error): ${e.message}")
-            null
+        } catch (t: Throwable) {
+            println("$tag (Error): ${t.message}")
+            throw t
         }
     }
 
     override  suspend fun doSignUp(email: String, password: String) : AuthResult? {
         return try {
             auth.createUserWithEmailAndPassword(email, password)
-        } catch (e: Exception) {
-            println("$tag (Error): ${e.message}")
-            null
+        } catch (t: Throwable) {
+            println("$tag (Error): ${t.message}")
+            throw t
         }
     }
 
     override suspend fun doSignOut() {
         try {
             auth.signOut()
-        } catch (e: Exception) {
-            println("$tag (Error): ${e.message}")
+        } catch (t: Throwable) {
+            println("$tag (Error): ${t.message}")
+            throw t
         }
     }
 
