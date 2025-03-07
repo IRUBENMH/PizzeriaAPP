@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.googleServices)
+    alias(libs.plugins.crashlytics)
 }
 
 kotlin {
@@ -33,6 +34,9 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+
+            implementation(project.dependencies.platform(libs.firebase.bom))
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -54,7 +58,7 @@ kotlin {
 
 
             //Firebase
-            implementation(libs.firebase.auth)
+
         }
     }
 }
@@ -87,6 +91,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.analytics)
     debugImplementation(compose.uiTooling)
 }
 
