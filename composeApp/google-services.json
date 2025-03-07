@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "523852226962",
-    "project_id": "pizzeria-kmp",
-    "storage_bucket": "pizzeria-kmp.firebasestorage.app"
+    "project_number": "952451137035",
+    "project_id": "pizzeria-app-2df83",
+    "storage_bucket": "pizzeria-app-2df83.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:523852226962:android:629c036930c7549b34a14b",
+        "mobilesdk_app_id": "1:952451137035:android:868231f209dd85a0a1510e",
         "android_client_info": {
           "package_name": "com.irubenmh.kmp.pizzeria"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAq16UB_zWXHZv8uSjFXri_q6_6vErPG_w"
+          "current_key": "AIzaSyAUiZRPv7Y4hx2UvItiNpvlBir3TqgbaJI"
         }
       ],
       "services": {
